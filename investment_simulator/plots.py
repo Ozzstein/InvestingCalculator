@@ -105,7 +105,16 @@ def _add_growth_plot(fig, simulation_results, inputs):
             x=percentiles['year'],
             y=percentiles['95th'],
             name="95th Percentile",
-            line=dict(color=COLORS['best'], width=2)
+            line=dict(color=COLORS['best'], width=2),
+            hovertemplate="€%{y:,.0f}<extra></extra>",
+            mode='lines+markers',
+            marker=dict(
+                size=8,
+                symbol='circle-open',
+                color=COLORS['best'],
+                line=dict(width=2)
+            ),
+            hoveron='points'
         ),
         row=1, col=1
     )
@@ -114,7 +123,16 @@ def _add_growth_plot(fig, simulation_results, inputs):
             x=percentiles['year'],
             y=percentiles['median'],
             name="Median",
-            line=dict(color=COLORS['median'], width=2)
+            line=dict(color=COLORS['median'], width=2),
+            hovertemplate="€%{y:,.0f}<extra></extra>",
+            mode='lines+markers',
+            marker=dict(
+                size=8,
+                symbol='circle-open',
+                color=COLORS['median'],
+                line=dict(width=2)
+            ),
+            hoveron='points'
         ),
         row=1, col=1
     )
@@ -123,7 +141,16 @@ def _add_growth_plot(fig, simulation_results, inputs):
             x=percentiles['year'],
             y=percentiles['5th'],
             name="5th Percentile",
-            line=dict(color=COLORS['worst'], width=2)
+            line=dict(color=COLORS['worst'], width=2),
+            hovertemplate="€%{y:,.0f}<extra></extra>",
+            mode='lines+markers',
+            marker=dict(
+                size=8,
+                symbol='circle-open',
+                color=COLORS['worst'],
+                line=dict(width=2)
+            ),
+            hoveron='points'
         ),
         row=1, col=1
     )
@@ -138,9 +165,47 @@ def _add_growth_plot(fig, simulation_results, inputs):
                 color=COLORS['invested'],
                 dash='dash',
                 width=2
-            )
+            ),
+            hovertemplate="€%{y:,.0f}<extra></extra>",
+            mode='lines+markers',
+            marker=dict(
+                size=8,
+                symbol='circle-open',
+                color=COLORS['invested'],
+                line=dict(width=2)
+            ),
+            hoveron='points'
         ),
         row=1, col=1
+    )
+
+    # Add hover line configuration
+    fig.update_layout(
+        xaxis=dict(
+            showspikes=True,
+            spikemode='across',
+            spikesnap='cursor',
+            spikecolor=COLORS['text'],
+            spikethickness=1,
+            spikedash='solid'
+        ),
+        yaxis=dict(
+            showspikes=False  # Remove horizontal line
+        ),
+        hovermode='x unified',
+        hoverlabel=dict(
+            namelength=-1  # Show full label names
+        )
+    )
+
+    # Add year label at the top
+    fig.update_layout(
+        xaxis_title="<b>Year: %{x}</b>",
+        xaxis_title_font=dict(
+            family="Atkinson Hyperlegible",
+            size=14,
+            color=COLORS['text']
+        )
     )
 
 
